@@ -1,4 +1,4 @@
-package outdated
+package community_images
 
 import (
 	"context"
@@ -115,7 +115,6 @@ func parseTags(tags []string) ([]*semver.Version, []string, error) {
 	}
 
 	// some semver tags might be outliers and should be treated as non-semver tags
-	// For more info, see https://github.com/replicatedhq/outdated/issues/19
 	outlierSemver, remainingSemver, err := splitOutlierSemvers(semverTags)
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "failed to split outliers")

@@ -7,7 +7,7 @@ test:
 
 .PHONY: bin
 bin: fmt vet
-	go build -o bin/outdated github.com/replicatedhq/outdated/cmd/outdated
+	go build -o bin/community-images github.com/dims/community-images/cmd/community_images
 
 .PHONY: fmt
 fmt:

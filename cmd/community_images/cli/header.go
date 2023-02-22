@@ -2,8 +2,7 @@ package cli
 
 import (
 	"fmt"
-
-	"github.com/replicatedhq/outdated/pkg/outdated"
+	outdated "github.com/dims/community-images/pkg/community_images"
 )
 
 const (

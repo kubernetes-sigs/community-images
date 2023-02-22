@@ -1,10 +1,11 @@
-package outdated
+package community_images
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
-	"github.com/minio/minio/pkg/wildcard"
+	"github.com/minio/pkg/wildcard"
 	"github.com/pkg/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
@@ -31,7 +32,7 @@ func (o Outdated) ListImages(configFlags *genericclioptions.ConfigFlags, imageNa
 		return nil, errors.Wrap(err, "failed to create clientset")
 	}
 
-	namespaces, err := clientset.CoreV1().Namespaces().List(metav1.ListOptions{})
+	namespaces, err := clientset.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to list namespaces")
 	}
@@ -44,7 +45,7 @@ func (o Outdated) ListImages(configFlags *genericclioptions.ConfigFlags, imageNa
 
 		imageNameCh <- fmt.Sprintf("%s/", namespace.Name)
 
-		pods, err := clientset.CoreV1().Pods(namespace.Name).List(metav1.ListOptions{})
+		pods, err := clientset.CoreV1().Pods(namespace.Name).List(context.Background(), metav1.ListOptions{})
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to list pods")
 		}

@@ -1,4 +1,4 @@
-package outdated
+package community_images
 
 import (
 	"encoding/json"

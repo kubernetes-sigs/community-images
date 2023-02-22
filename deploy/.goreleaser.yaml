@@ -1,10 +1,10 @@
-project_name: outdated
+project_name: community-images
 release:
   github:
-    owner: replicatedhq
-    name: outdated
+    owner: dims
+    name: community-images
 builds:
-  - id: outdated
+  - id: community-images
     goos:
     - linux
     - windows
@@ -16,19 +16,19 @@ builds:
     env:
       - CGO_ENABLED=0
       - GO111MODULE=on
-    main: cmd/outdated/main.go
+    main: cmd/community_images/main.go
     ldflags: -s -w
-      -X github.com/replicatedhq/outdated/pkg/version.version={{.Version}}
-      -X github.com/replicatedhq/outdated/pkg/version.gitSHA={{.Commit}}
-      -X github.com/replicatedhq/outdated/pkg/version.buildTime={{.Date}}
+      -X github.com/dims/community-images/pkg/version.version={{.Version}}
+      -X github.com/dims/community-images/pkg/version.gitSHA={{.Commit}}
+      -X github.com/dims/community-images/pkg/version.buildTime={{.Date}}
       -extldflags "-static"
     flags: -tags netgo -installsuffix netgo
-    binary: outdated
+    binary: community-images
     hooks: {}
 archives:
-  - id: outdated
+  - id: community-images
     builds:
-      - outdated
+      - community-images
     format: tar.gz
     format_overrides:
       - goos: windows

@@ -2,15 +2,15 @@ package cli
 
 import (
 	"fmt"
+	outdated "github.com/dims/community-images/pkg/community_images"
 	"os"
 	"strings"
 	"time"
 
-	"github.com/replicatedhq/outdated/pkg/logger"
-	"github.com/replicatedhq/outdated/pkg/outdated"
+	"github.com/dims/community-images/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/tj/go-spin"
+	spin "github.com/tj/go-spin"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
@@ -20,7 +20,7 @@ var (
 
 func RootCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:           "outdated",
+		Use:           "community-images",
 		Short:         "",
 		Long:          `.`,
 		SilenceErrors: true,
