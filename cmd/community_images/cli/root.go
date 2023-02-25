@@ -33,8 +33,6 @@ func RootCmd() *cobra.Command {
 			log := logger.NewLogger()
 			log.Info("")
 
-			o := community_images.CommunityImages{}
-
 			s := spin.New()
 			finishedCh := make(chan bool, 1)
 			foundImageName := make(chan string, 1)
@@ -60,7 +58,7 @@ func RootCmd() *cobra.Command {
 				finishedCh <- true
 			}()
 
-			images, err := o.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"))
+			images, err := community_images.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"))
 			if err != nil {
 				log.Error(err)
 				log.Info("")
@@ -73,20 +71,10 @@ func RootCmd() *cobra.Command {
 
 			for _, image := range images {
 				log.StartImageLine(runningImage(image))
-				checkResult, err := o.ParseImage(image.Image, image.PullableImage)
-				if err != nil {
-					log.FinalizeImageLineWithError(erroredImage(image, checkResult))
-				} else {
-					if checkResult.VersionsBehind != -1 {
-						log.FinalizeImageLine(checkResult.VersionsBehind, completedImage(image, checkResult))
-					} else {
-						log.FinalizeImageLineWithError(erroredImage(image, checkResult))
-					}
-				}
+				log.ImageLine(completedImage(image))
 			}
 
 			log.Info("")
-
 			return nil
 		},
 	}
