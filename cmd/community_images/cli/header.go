@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	outdated "github.com/dims/community-images/pkg/community_images"
+	"github.com/dims/community-images/pkg/community_images"
 )
 
 const (
@@ -14,8 +14,8 @@ func headerLine() string {
 	return fmt.Sprintf("Image")
 }
 
-func runningImage(image outdated.RunningImage) string {
-	repo, img, tag, err := outdated.ParseImageName(image.Image)
+func runningImage(image community_images.RunningImage) string {
+	repo, img, tag, err := community_images.ParseImageName(image.Image)
 	if err != nil {
 		return ""
 	}
@@ -34,8 +34,8 @@ func runningImage(image outdated.RunningImage) string {
 	return fmt.Sprintf("%s:%s", truncatedImageName, truncatedTagName)
 }
 
-func completedImage(image outdated.RunningImage, checkResult *outdated.CheckResult) string {
-	repo, img, tag, err := outdated.ParseImageName(image.Image)
+func completedImage(image community_images.RunningImage, checkResult *community_images.CheckResult) string {
+	repo, img, tag, err := community_images.ParseImageName(image.Image)
 	if err != nil {
 		return ""
 	}
@@ -60,8 +60,8 @@ func completedImage(image outdated.RunningImage, checkResult *outdated.CheckResu
 
 }
 
-func erroredImage(image outdated.RunningImage, checkResult *outdated.CheckResult) string {
-	repo, img, tag, err := outdated.ParseImageName(image.Image)
+func erroredImage(image community_images.RunningImage, checkResult *community_images.CheckResult) string {
+	repo, img, tag, err := community_images.ParseImageName(image.Image)
 	if err != nil {
 		return ""
 	}

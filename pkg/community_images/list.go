@@ -21,7 +21,7 @@ type RunningImage struct {
 	PullableImage string
 }
 
-func (o Outdated) ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan string, ignoreNs []string) ([]RunningImage, error) {
+func (o CommunityImages) ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan string, ignoreNs []string) ([]RunningImage, error) {
 	config, err := configFlags.ToRESTConfig()
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read kubeconfig")

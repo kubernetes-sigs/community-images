@@ -2,11 +2,11 @@ package cli
 
 import (
 	"fmt"
-	outdated "github.com/dims/community-images/pkg/community_images"
 	"os"
 	"strings"
 	"time"
 
+	"github.com/dims/community-images/pkg/community_images"
 	"github.com/dims/community-images/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -33,7 +33,7 @@ func RootCmd() *cobra.Command {
 			log := logger.NewLogger()
 			log.Info("")
 
-			o := outdated.Outdated{}
+			o := community_images.CommunityImages{}
 
 			s := spin.New()
 			finishedCh := make(chan bool, 1)

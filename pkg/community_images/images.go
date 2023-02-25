@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type Outdated struct {
+type CommunityImages struct {
 }
 
 type CheckResult struct {
@@ -21,7 +21,7 @@ type CheckResult struct {
 	Path           string
 }
 
-func (o Outdated) ParseImage(image string, pullableImage string) (*CheckResult, error) {
+func (o CommunityImages) ParseImage(image string, pullableImage string) (*CheckResult, error) {
 	hostname, imageName, tag, err := ParseImageName(image)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to parse image name")
@@ -84,7 +84,7 @@ func (o Outdated) ParseImage(image string, pullableImage string) (*CheckResult, 
 	return &checkResult, nil
 }
 
-func (o *Outdated) parseNonSemverImage(reg *registry.Registry, imageName string, tag string, nonSemverTags []string) (*CheckResult, error) {
+func (o *CommunityImages) parseNonSemverImage(reg *registry.Registry, imageName string, tag string, nonSemverTags []string) (*CheckResult, error) {
 	laterDates := []string{}
 	tagDate, err := getTagDate(reg, imageName, tag)
 	if err != nil {
