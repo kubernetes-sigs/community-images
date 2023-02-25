@@ -69,19 +69,18 @@ func RootCmd() *cobra.Command {
 			}
 			finishedCh <- true
 
-			head, imageColumnWidth, tagColumnWidth := headerLine(images)
-			log.Header(head)
+			log.Header(headerLine())
 
 			for _, image := range images {
-				log.StartImageLine(runningImage(image, imageColumnWidth, tagColumnWidth))
+				log.StartImageLine(runningImage(image))
 				checkResult, err := o.ParseImage(image.Image, image.PullableImage)
 				if err != nil {
-					log.FinalizeImageLineWithError(erroredImage(image, checkResult, imageColumnWidth, tagColumnWidth))
+					log.FinalizeImageLineWithError(erroredImage(image, checkResult))
 				} else {
 					if checkResult.VersionsBehind != -1 {
-						log.FinalizeImageLine(checkResult.VersionsBehind, completedImage(image, checkResult, imageColumnWidth, tagColumnWidth))
+						log.FinalizeImageLine(checkResult.VersionsBehind, completedImage(image, checkResult))
 					} else {
-						log.FinalizeImageLineWithError(erroredImage(image, checkResult, imageColumnWidth, tagColumnWidth))
+						log.FinalizeImageLineWithError(erroredImage(image, checkResult))
 					}
 				}
 			}
