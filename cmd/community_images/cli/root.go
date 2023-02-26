@@ -3,6 +3,7 @@ package cli
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -58,7 +59,7 @@ func RootCmd() *cobra.Command {
 				finishedCh <- true
 			}()
 
-			images, err := community_images.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"))
+			imagesList, err := community_images.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"))
 			if err != nil {
 				log.Error(err)
 				log.Info("")
@@ -68,10 +69,15 @@ func RootCmd() *cobra.Command {
 			finishedCh <- true
 
 			log.Header(headerLine())
-
-			for _, image := range images {
-				log.StartImageLine(runningImage(image))
-				log.ImageLine(completedImage(image))
+			re := regexp.MustCompile(`k8s\.gcr\.io|gcr\.io/google_containers`)
+			for _, runningImage := range imagesList {
+				image := imageWithTag(runningImage)
+				log.StartImageLine(image)
+				if re.MatchString(image) {
+					log.ImageRedLine(image)
+				} else {
+					log.ImageGreenLine(image)
+				}
 			}
 
 			log.Info("")

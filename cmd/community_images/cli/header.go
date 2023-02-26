@@ -9,7 +9,7 @@ func headerLine() string {
 	return fmt.Sprintf("Image")
 }
 
-func runningImage(image community_images.RunningImage) string {
+func imageWithTag(image community_images.RunningImage) string {
 	repo, img, tag, err := community_images.ParseImageName(image.Image)
 	if err != nil {
 		return ""
@@ -19,17 +19,4 @@ func runningImage(image community_images.RunningImage) string {
 	truncatedImageName := imageName
 	truncatedTagName := tag
 	return fmt.Sprintf("%s:%s", truncatedImageName, truncatedTagName)
-}
-
-func completedImage(image community_images.RunningImage) string {
-	repo, img, tag, err := community_images.ParseImageName(image.Image)
-	if err != nil {
-		return ""
-	}
-
-	imageName := fmt.Sprintf("%s/%s", repo, img)
-	truncatedImageName := imageName
-	truncatedTagName := tag
-	return fmt.Sprintf("%s:%s", truncatedImageName, truncatedTagName)
-
 }
