@@ -7,7 +7,7 @@ test:
 
 .PHONY: bin
 bin: fmt vet
-	go build -o bin/community-images github.com/dims/community-images/cmd/community_images
+	go build -o bin/community_images github.com/dims/community-images/cmd/community_images
 
 .PHONY: fmt
 fmt:
