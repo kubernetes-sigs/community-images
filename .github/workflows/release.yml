@@ -19,10 +19,10 @@ jobs:
           go-version: "1.20.1"
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2.5.0
+        uses: goreleaser/goreleaser-action@v4.2.0
         with:
           version: latest
-          args: release --rm-dist --config deploy/.goreleaser.yaml
+          args: release --clean --config deploy/.goreleaser.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
