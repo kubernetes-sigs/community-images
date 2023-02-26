@@ -24,7 +24,7 @@ jobs:
           version: latest
           args: release --rm-dist --config deploy/.goreleaser.yaml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Update new community-images version in krew-index
         uses: rajatjindal/krew-release-bot@v0.0.39
