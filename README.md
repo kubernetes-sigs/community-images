@@ -1,3 +1,7 @@
+# Attribution
+
+Adapted from code [https://github.com/replicatedhq/outdated](https://github.com/replicatedhq/outdated)
+
 # `kubectl community-images`
 
 `kubectl` `community-images` is a `kubectl` plugin that displays images running in a Kubernetes cluster that were pulled from community owned repositories and warn the user to switch repositories if needed
