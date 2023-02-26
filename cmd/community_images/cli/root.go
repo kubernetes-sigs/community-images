@@ -68,7 +68,8 @@ func RootCmd() *cobra.Command {
 			}
 			finishedCh <- true
 
-			log.Header(headerLine())
+			config, _ := KubernetesConfigFlags.ToRESTConfig()
+			log.Header(headerLine(config.Host))
 			re := regexp.MustCompile(`k8s\.gcr\.io`)
 			for _, runningImage := range imagesList {
 				image := imageWithTag(runningImage)
