@@ -89,6 +89,11 @@ func RootCmd() *cobra.Command {
 			fmt.Printf("This simple change on your part will help the Kubernetes community immensely as it\n" +
 				"reduces the cost of us serving these container images.\n")
 
+			fmt.Printf("\n\033[1mWhy you should do this as soon as possible? Read more in the following blog\n" +
+				"posts by the Kubernetes community:\033[m\n" +
+				"- https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/\n" +
+				"- https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/\n")
+
 			log.Info("")
 			return nil
 		},
