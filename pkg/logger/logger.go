@@ -38,10 +38,10 @@ func (l *Logger) StartImageLine(msg string, args ...interface{}) {
 
 func (l *Logger) ImageGreenLine(msg string, args ...interface{}) {
 	c := color.New(color.FgHiGreen)
-	c.Println(fmt.Sprintf("\r"+msg, args...))
+	c.Println(fmt.Sprintf("\r ✅ "+msg, args...))
 }
 
 func (l *Logger) ImageRedLine(msg string, args ...interface{}) {
 	c := color.New(color.FgHiRed)
-	c.Println(fmt.Sprintf("\r"+msg, args...))
+	c.Println(fmt.Sprintf("\r ❌ "+msg, args...))
 }
