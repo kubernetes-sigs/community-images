@@ -82,8 +82,8 @@ func RootCmd() *cobra.Command {
 			}
 
 			fmt.Printf("\nImages in \033[91mred ❌ \033[mare being pulled from Kubernetes community registries." +
-				"the others \n marked in \033[92mgreen ✅ \u001B[mare good as they are NOT from Kubernetes community registries.\n" +
-				"Please copy these images to your own registry and change your manifest(s)\n to point to the new location.\n\n")
+				"the others \nmarked in \033[92mgreen ✅ \u001B[mare good as they are NOT from Kubernetes community registries.\n" +
+				"Please copy these images to your own registry and change your manifest(s)\nto point to the new location.\n\n")
 			fmt.Printf(
 				"If you are unable to do so, as a short term fix please use \033[92m`registry.k8s.io`\033[m " +
 					"\ninstead of \033[91m`k8s.gcr.io`\033[muntil you have your own registry.\n\n")
