@@ -12,7 +12,7 @@ Adapted from code [https://github.com/replicatedhq/outdated](https://github.com/
 
 ## How it Works
 
-The plugin will iterate through readable namespaces, and look for pods. For every pod it can read, the plugin will read the `podspec` for the container images, and any `init` container images. Additionally, it collects the content sha of the image, so that it can be used to disambiguate between different versions pushed with the same tag.
+The plugin will iterate through readable namespaces, and look for pods. For every pod it can read, the plugin will read the `podspec` for the container images, and any `init` container images.
 
 Once there is a list of images, the plugin will print those images that come from a community owned repository and specifically point out those whose repository path have to be updated  
 
