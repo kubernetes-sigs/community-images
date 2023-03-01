@@ -16,8 +16,7 @@ func imageWithTag(image community_images.RunningImage) string {
 		return ""
 	}
 
-	location := ""
-	location = fmt.Sprintf("\u001B[36m(Location: \u001B[33m%s > %s", image.Namespace, image.Pod)
+	location := fmt.Sprintf("\u001B[36m(Location: \u001B[33m%s > %s", image.Namespace, image.Pod)
 	if image.InitContainer != nil {
 		location = fmt.Sprintf("%s > \u001B[33m%s", location, *image.InitContainer)
 	}
