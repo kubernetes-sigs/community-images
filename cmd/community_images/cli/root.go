@@ -70,7 +70,7 @@ func RootCmd() *cobra.Command {
 
 			config, _ := KubernetesConfigFlags.ToRESTConfig()
 			log.Header(headerLine(config.Host))
-			re := regexp.MustCompile(`k8s\.gcr\.io|gcr\.io/google-containers`)
+			re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google-containers`)
 			for _, runningImage := range imagesList {
 				image := imageWithTag(runningImage)
 				log.StartImageLine(image)
