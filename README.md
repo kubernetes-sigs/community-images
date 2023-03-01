@@ -38,6 +38,15 @@ $ kubectl krew install community-images
 kubectl community-images
 ````
 
+### Alternatives to krew
+
+- [Download binaries from a recent release](https://github.com/dims/community-images/releases):
+- Use `go install` to build the binary
+````
+go install github.com/dims/community-images/cmd/community_images@latest
+$GOPATH/bin/community_images
+````
+
 The community-images is a list of all community owned images, with the most out-of-date images in red.
 
 ### Contributing to `community-images`
