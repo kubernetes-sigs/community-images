@@ -6,6 +6,11 @@ on:
       - "**"
     tags-ignore:
       - "*"
+  pull_request:
+    types:
+      - synchronize
+    branches:
+      - main
 
 jobs:
   build-and-test:
