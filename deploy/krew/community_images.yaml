@@ -9,7 +9,7 @@ spec:
       matchLabels:
         os: linux
         arch: amd64
-    {{addURIAndSha "https://github.com/dims/community-images/releases/download/{{ .TagName }}/community-images_linux_amd64.tar.gz" .TagName }}
+    {{addURIAndSha "https://github.com/kubernetes-sigs/community-images/releases/download/{{ .TagName }}/community-images_linux_amd64.tar.gz" .TagName }}
     files:
     - from: community-images
       to: .
@@ -20,7 +20,7 @@ spec:
       matchLabels:
         os: linux
         arch: arm64
-    {{addURIAndSha "https://github.com/dims/community-images/releases/download/{{ .TagName }}/community-images_linux_arm64.tar.gz" .TagName }}
+    {{addURIAndSha "https://github.com/kubernetes-sigs/community-images/releases/download/{{ .TagName }}/community-images_linux_arm64.tar.gz" .TagName }}
     files:
     - from: community-images
       to: .
@@ -31,7 +31,7 @@ spec:
       matchLabels:
         os: darwin
         arch: amd64
-    {{addURIAndSha "https://github.com/dims/community-images/releases/download/{{ .TagName }}/community-images_darwin_amd64.tar.gz" .TagName }}
+    {{addURIAndSha "https://github.com/kubernetes-sigs/community-images/releases/download/{{ .TagName }}/community-images_darwin_amd64.tar.gz" .TagName }}
     files:
     - from: community-images
       to: .
@@ -42,7 +42,7 @@ spec:
       matchLabels:
         os: darwin
         arch: arm64
-    {{addURIAndSha "https://github.com/dims/community-images/releases/download/{{ .TagName }}/community-images_darwin_arm64.tar.gz" .TagName }}
+    {{addURIAndSha "https://github.com/kubernetes-sigs/community-images/releases/download/{{ .TagName }}/community-images_darwin_arm64.tar.gz" .TagName }}
     files:
     - from: community-images
       to: .
@@ -53,7 +53,7 @@ spec:
       matchLabels:
         os: windows
         arch: amd64
-    {{addURIAndSha "https://github.com/dims/community-images/releases/download/{{ .TagName }}/community-images_windows_amd64.zip" .TagName }}
+    {{addURIAndSha "https://github.com/kubernetes-sigs/community-images/releases/download/{{ .TagName }}/community-images_windows_amd64.zip" .TagName }}
     files:
     - from: community-images.exe
       to: .
@@ -61,7 +61,7 @@ spec:
       to: .
     bin: community-images.exe
   shortDescription: List community owned container images running
-  homepage: https://github.com/dims/community-images
+  homepage: https://github.com/kubernetes-sigs/community-images
   description: |
     The plugin will scan for all pods in all namespaces that you have at least
     read access to. The output is a list of all images, with the community
@@ -70,4 +70,4 @@ spec:
 
     For additional options:
       $ kubectl community-images --help
-      or https://github.com/dims/community-images/blob/master/doc/USAGE.md
+      or https://github.com/kubernetes-sigs/community-images/blob/master/doc/USAGE.md

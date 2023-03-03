@@ -1,4 +1,4 @@
-module github.com/dims/community-images
+module github.com/kuernetes-sigs/community-images
 
 go 1.19
 

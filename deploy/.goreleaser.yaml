@@ -18,9 +18,9 @@ builds:
       - GO111MODULE=on
     main: cmd/community_images/main.go
     ldflags: -s -w
-      -X github.com/dims/community-images/pkg/version.version={{.Version}}
-      -X github.com/dims/community-images/pkg/version.gitSHA={{.Commit}}
-      -X github.com/dims/community-images/pkg/version.buildTime={{.Date}}
+      -X github.com/kubernetes-sigs/community-images/pkg/version.version={{.Version}}
+      -X github.com/kubernetes-sigs/community-images/pkg/version.gitSHA={{.Commit}}
+      -X github.com/kubernetes-sigs/community-images/pkg/version.buildTime={{.Date}}
       -extldflags "-static"
     flags: -tags netgo -installsuffix netgo
     binary: community-images
