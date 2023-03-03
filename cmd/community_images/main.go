@@ -17,7 +17,7 @@ limitations under the License.
 package main
 
 import (
-	"github.com/dims/community-images/cmd/community_images/cli"
+	"github.com/kubernetes-sigs/community-images/cmd/community_images/cli"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 

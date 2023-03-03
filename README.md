@@ -40,10 +40,10 @@ kubectl community-images
 
 ### Alternatives to krew
 
-- [Download binaries from a recent release](https://github.com/dims/community-images/releases):
+- [Download binaries from a recent release](https://github.com/kubernetes-sigs/community-images/releases):
 - Use `go install` to build the binary
 ````
-go install github.com/dims/community-images/cmd/community_images@latest
+go install github.com/kubernetes-sigs/community-images/cmd/community_images@latest
 $GOPATH/bin/community_images
 ````
 

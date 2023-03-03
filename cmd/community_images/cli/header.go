@@ -19,7 +19,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/dims/community-images/pkg/community_images"
+	"github.com/kubernetes-sigs/community-images/pkg/community_images"
 )
 
 func headerLine(host string) string {

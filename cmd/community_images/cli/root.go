@@ -23,8 +23,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dims/community-images/pkg/community_images"
-	"github.com/dims/community-images/pkg/logger"
+	"github.com/kubernetes-sigs/community-images/pkg/community_images"
+	"github.com/kubernetes-sigs/community-images/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	spin "github.com/tj/go-spin"
