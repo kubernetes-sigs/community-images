@@ -27,6 +27,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Update new community-images version in krew-index
-        uses: rajatjindal/krew-release-bot@v0.0.39
+        uses: rajatjindal/krew-release-bot@v0.0.43
         with:
           krew_template_file: deploy/krew/community_images.yaml
