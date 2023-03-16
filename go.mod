@@ -1,4 +1,4 @@
-module github.com/kuernetes-sigs/community-images
+module github.com/kubernetes-sigs/community-images
 
 go 1.19
 
