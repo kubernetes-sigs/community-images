@@ -59,7 +59,9 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 			continue
 		}
 
-		imageNameCh <- fmt.Sprintf("%s/", namespace.Name)
+		if imageNameCh != nil {
+			imageNameCh <- fmt.Sprintf("%s/", namespace.Name)
+		}
 
 		pods, err := clientset.CoreV1().Pods(namespace.Name).List(context.Background(), metav1.ListOptions{})
 		if err != nil {
@@ -80,7 +82,9 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 					PullableImage: pullable,
 				}
 
-				imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+				if imageNameCh != nil {
+					imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+				}
 				runningImages = append(runningImages, runningImage)
 			}
 
@@ -97,7 +101,9 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 					PullableImage: pullable,
 				}
 
-				imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+				if imageNameCh != nil {
+					imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+				}
 				runningImages = append(runningImages, runningImage)
 			}
 		}
@@ -107,7 +113,8 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	cleanedImages := []RunningImage{}
 	for _, runningImage := range runningImages {
 		for _, cleanedImage := range cleanedImages {
-			if cleanedImage.PullableImage == runningImage.PullableImage {
+			if cleanedImage.PullableImage == runningImage.PullableImage &&
+				cleanedImage.Image == runningImage.Image {
 				goto NextImage
 			}
 		}
