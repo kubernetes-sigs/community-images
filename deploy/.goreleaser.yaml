@@ -1,7 +1,7 @@
 project_name: community-images
 release:
   github:
-    owner: dims
+    owner: kubernetes-sigs
     name: community-images
 builds:
   - id: community-images
