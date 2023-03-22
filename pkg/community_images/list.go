@@ -113,7 +113,8 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	cleanedImages := []RunningImage{}
 	for _, runningImage := range runningImages {
 		for _, cleanedImage := range cleanedImages {
-			if cleanedImage.PullableImage == runningImage.PullableImage {
+			if cleanedImage.PullableImage == runningImage.PullableImage &&
+				cleanedImage.Image == runningImage.Image {
 				goto NextImage
 			}
 		}
