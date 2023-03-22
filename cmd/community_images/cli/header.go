@@ -50,3 +50,13 @@ func imageWithTag(image community_images.RunningImage) string {
 	truncatedTagName := tag
 	return fmt.Sprintf("%s:%s %s", truncatedImageName, truncatedTagName, location)
 }
+
+func imageWithTagPlain(image community_images.RunningImage) string {
+	repo, img, tag, err := community_images.ParseImageName(image.Image)
+	if err != nil {
+		return ""
+	}
+
+	imageName := fmt.Sprintf("%s/%s", repo, img)
+	return fmt.Sprintf("%s:%s", imageName, tag)
+}
