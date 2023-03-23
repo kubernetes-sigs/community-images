@@ -26,6 +26,9 @@ var (
 	dockerImageNameRegex = regexp.MustCompile("(?:([^\\/]+)\\/)?(?:([^\\/]+)\\/)?([^@:\\/]+)(?:[@:](.+))")
 )
 
+const defaultHost = "index.docker.io"
+const defaultHostAlias = "docker.io"
+
 func ParseImageName(imageName string) (string, string, string, error) {
 	matches := dockerImageNameRegex.FindStringSubmatch(imageName)
 
@@ -45,13 +48,22 @@ func ParseImageName(imageName string) (string, string, string, error) {
 		}
 	}
 
+	// docker defaulting
 	if hostname == "" {
-		hostname = "index.docker.io"
+		hostname = defaultHostAlias
 	}
 
-	if namespace == "" {
+	if namespace == "" && hasImplicitNamespace(hostname) {
 		namespace = "library"
 	}
 
-	return hostname, fmt.Sprintf("%s/%s", namespace, image), tag, nil
+	if namespace != "" {
+		image = namespace + "/" + image
+	}
+
+	return hostname, image, tag, nil
+}
+
+func hasImplicitNamespace(hostname string) bool {
+	return hostname == defaultHost || hostname == defaultHostAlias
 }
