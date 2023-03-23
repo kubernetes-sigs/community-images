@@ -47,10 +47,18 @@ func RootCmd() *cobra.Command {
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			v := viper.GetViper()
-			if v.GetBool("plain") {
-				return runParsableCommand(v)
+			if v.GetBool("mirror") {
+				// regexp for all community registries
+				re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google-containers|^registry\.k8s\.io/`)
+				return runParsableCommand(v, re)
+			} else {
+				if v.GetBool("plain") {
+					// regexp for only the old registries that we need to move folks off of
+					re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google-containers`)
+					return runParsableCommand(v, re)
+				}
+				return runPrettyCommand(v)
 			}
-			return runPrettyCommand(v)
 		},
 	}
 
@@ -61,6 +69,7 @@ func RootCmd() *cobra.Command {
 
 	cmd.Flags().StringSlice("ignore-ns", []string{}, "optional list of namespaces to exclude from searching")
 	cmd.Flags().Bool("plain", false, "machine parsable output (list of images from older registries ONLY)")
+	cmd.Flags().Bool("mirror", false, "list of images that should be mirrored from all community registries (assumes --plain is true)")
 	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
 	return cmd
 }
@@ -77,14 +86,13 @@ func initConfig() {
 	viper.AutomaticEnv()
 }
 
-func runParsableCommand(v *viper.Viper) error {
+func runParsableCommand(v *viper.Viper, re *regexp.Regexp) error {
 	imagesList, err := community_images.ListImages(KubernetesConfigFlags, nil, v.GetStringSlice("ignore-ns"))
 	if err != nil {
 		os.Exit(1)
 		return nil
 	}
 
-	re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google-containers`)
 	for _, runningImage := range imagesList {
 		image := imageWithTagPlain(runningImage)
 		if re.MatchString(image) {
