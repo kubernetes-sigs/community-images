@@ -29,7 +29,7 @@ the `community-images` plugin is installed using the `krew` plugin manager for K
 After installing & configuring the k8s `krew` plugin, install `community-images` using the following command:
 
 ````
-$ kubectl krew install community-images
+kubectl krew install community-images
 ````
 
 ### Usage
