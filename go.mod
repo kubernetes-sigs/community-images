@@ -6,7 +6,7 @@ require (
 	github.com/fatih/color v1.15.0
 	github.com/minio/pkg v1.6.5
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/cobra v1.6.1
+	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.2
 	github.com/tj/go-spin v1.1.0
