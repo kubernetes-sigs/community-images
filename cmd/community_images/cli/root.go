@@ -67,6 +67,7 @@ func RootCmd() *cobra.Command {
 	KubernetesConfigFlags = genericclioptions.NewConfigFlags(false)
 	KubernetesConfigFlags.AddFlags(cmd.Flags())
 
+	cmd.Flags().StringSlice("include-ns", []string{}, "optional list of namespaces to include in the searching")
 	cmd.Flags().StringSlice("ignore-ns", []string{}, "optional list of namespaces to exclude from searching")
 	cmd.Flags().Bool("plain", false, "machine parsable output (list of images from older registries ONLY)")
 	cmd.Flags().Bool("mirror", false, "list of images that should be mirrored from all community registries (assumes --plain is true)")
@@ -87,7 +88,7 @@ func initConfig() {
 }
 
 func runParsableCommand(v *viper.Viper, re *regexp.Regexp) error {
-	imagesList, err := community_images.ListImages(KubernetesConfigFlags, nil, v.GetStringSlice("ignore-ns"))
+	imagesList, err := community_images.ListImages(KubernetesConfigFlags, nil, v.GetStringSlice("ignore-ns"), v.GetStringSlice("include-ns"))
 	if err != nil {
 		os.Exit(1)
 		return nil
@@ -131,7 +132,7 @@ func runPrettyCommand(v *viper.Viper) error {
 		finishedCh <- true
 	}()
 
-	imagesList, err := community_images.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"))
+	imagesList, err := community_images.ListImages(KubernetesConfigFlags, foundImageName, v.GetStringSlice("ignore-ns"), v.GetStringSlice("include-ns"))
 	if err != nil {
 		log.Error(err)
 		log.Info("")

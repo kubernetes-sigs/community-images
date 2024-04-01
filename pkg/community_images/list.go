@@ -37,7 +37,7 @@ type RunningImage struct {
 	PullableImage string
 }
 
-func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan string, ignoreNs []string) ([]RunningImage, error) {
+func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan string, ignoreNs []string, includeNs []string) ([]RunningImage, error) {
 	config, err := configFlags.ToRESTConfig()
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read kubeconfig")
@@ -47,7 +47,6 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create clientset")
 	}
-
 	namespaces, err := clientset.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to list namespaces")
@@ -56,6 +55,10 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	runningImages := []RunningImage{}
 	for _, namespace := range namespaces.Items {
 		if isNamespaceExcluded(namespace.Name, ignoreNs) {
+			continue
+		}
+
+		if len(includeNs) > 0 && !isNamespaceIncluded(namespace.Name, includeNs) {
 			continue
 		}
 
@@ -129,6 +132,16 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 func isNamespaceExcluded(namespace string, excluded []string) bool {
 	for _, ex := range excluded {
 		if wildcard.Match(ex, namespace) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func isNamespaceIncluded(namespace string, included []string) bool {
+	for _, in := range included {
+		if wildcard.Match(in, namespace) {
 			return true
 		}
 	}
