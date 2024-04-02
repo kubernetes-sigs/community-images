@@ -23,6 +23,7 @@ import (
 
 	"github.com/minio/pkg/wildcard"
 	"github.com/pkg/errors"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/kubernetes"
@@ -47,26 +48,27 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create clientset")
 	}
-	namespaces, err := clientset.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to list namespaces")
-	}
-
-	runningImages := []RunningImage{}
-	for _, namespace := range namespaces.Items {
-		if isNamespaceExcluded(namespace.Name, ignoreNs) {
-			continue
+	var namespaces []string
+	if len(includeNs) > 0 {
+		namespaces = includeNs
+	} else {
+		clusterNamespaces, err := clientset.CoreV1().Namespaces().List(context.Background(), metav1.ListOptions{})
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to list namespaces")
 		}
-
-		if len(includeNs) > 0 && !isNamespaceIncluded(namespace.Name, includeNs) {
+		namespaces = convertNSlistToStrList(clusterNamespaces)
+	}
+	runningImages := []RunningImage{}
+	for _, namespace := range namespaces {
+		if isNamespaceExcluded(namespace, ignoreNs) {
 			continue
 		}
 
 		if imageNameCh != nil {
-			imageNameCh <- fmt.Sprintf("%s/", namespace.Name)
+			imageNameCh <- fmt.Sprintf("%s/", namespace)
 		}
 
-		pods, err := clientset.CoreV1().Pods(namespace.Name).List(context.Background(), metav1.ListOptions{})
+		pods, err := clientset.CoreV1().Pods(namespace).List(context.Background(), metav1.ListOptions{})
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to list pods")
 		}
@@ -86,7 +88,7 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 				}
 
 				if imageNameCh != nil {
-					imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+					imageNameCh <- fmt.Sprintf("%s/%s", namespace, runningImage.Image)
 				}
 				runningImages = append(runningImages, runningImage)
 			}
@@ -105,7 +107,7 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 				}
 
 				if imageNameCh != nil {
-					imageNameCh <- fmt.Sprintf("%s/%s", namespace.Name, runningImage.Image)
+					imageNameCh <- fmt.Sprintf("%s/%s", namespace, runningImage.Image)
 				}
 				runningImages = append(runningImages, runningImage)
 			}
@@ -129,19 +131,17 @@ func ListImages(configFlags *genericclioptions.ConfigFlags, imageNameCh chan str
 	return cleanedImages, nil
 }
 
+func convertNSlistToStrList(namespaces *v1.NamespaceList) []string {
+	namespacesNames := make([]string, len(namespaces.Items))
+	for i, namespace := range namespaces.Items {
+		namespacesNames[i] = namespace.Name
+	}
+	return namespacesNames
+}
+
 func isNamespaceExcluded(namespace string, excluded []string) bool {
 	for _, ex := range excluded {
 		if wildcard.Match(ex, namespace) {
-			return true
-		}
-	}
-
-	return false
-}
-
-func isNamespaceIncluded(namespace string, included []string) bool {
-	for _, in := range included {
-		if wildcard.Match(in, namespace) {
 			return true
 		}
 	}
