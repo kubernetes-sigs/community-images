@@ -143,7 +143,7 @@ func runPrettyCommand(v *viper.Viper) error {
 
 	config, _ := KubernetesConfigFlags.ToRESTConfig()
 	log.Header(headerLine(config.Host))
-	re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google-containers`)
+	re := regexp.MustCompile(`^k8s\.gcr\.io/|^gcr\.io/google[-_]containers`)
 	for _, runningImage := range imagesList {
 		image := imageWithTag(runningImage)
 		log.StartImageLine(image)

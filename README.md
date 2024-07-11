@@ -6,9 +6,11 @@ Adapted from code [https://github.com/replicatedhq/outdated](https://github.com/
 
 `kubectl` `community-images` is a `kubectl` plugin that displays images running in a Kubernetes cluster that were pulled from community owned repositories and warn the user to switch repositories if needed
 
+<!-- TODO: reintroduce this when we've replicated it with a current version of the tool, the old output was misleading.
 ## What does the output look like
 
 ![](images/community-images.png)
+-->
 
 ## How it Works
 
