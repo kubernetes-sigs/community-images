@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0 # fetch full history for goreleaser changelog
 
-      - uses: actions/setup-go@v4.0.0
+      - uses: actions/setup-go@v5.0.2
         with:
           go-version: "1.20.1"
 
