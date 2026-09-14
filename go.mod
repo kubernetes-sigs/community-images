@@ -8,7 +8,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.12.1
 	github.com/tj/go-spin v1.1.0
 	k8s.io/api v0.26.3
 	k8s.io/apimachinery v0.26.3
@@ -52,7 +52,6 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
-	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
@@ -61,6 +60,7 @@ require (
 	github.com/subosito/gotenv v1.4.2 // indirect
 	github.com/xlab/treeprint v1.1.0 // indirect
 	go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783 // indirect
 	golang.org/x/sys v0.6.0 // indirect
